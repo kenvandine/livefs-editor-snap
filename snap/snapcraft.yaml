@@ -1,0 +1,29 @@
+name: livefs-editor
+adopt-info: livefs-editor
+base: core22
+summary: LiveFS Editor
+description: |
+  A tool to "edit" Ubuntu ISO images
+
+grade: stable
+confinement: classic
+
+parts:
+  livefs-editor:
+    source: https://github.com/mwhudson/livefs-editor.git
+    plugin: python
+    stage-packages:
+      - xorriso
+      - squashfs-tools
+      - python3-debian
+      - liblz4-tool
+      - mount
+    override-pull: |
+      craftctl default
+      craftctl set version=$(git describe --tags --abbrev=10)
+
+apps:
+  livefs-editor:
+    command: bin/livefs-edit
+    environment:
+      PYTHONPATH: $SNAP/lib/python3.10/site-packages:$SNAP/usr/lib/python3/dist-packages
