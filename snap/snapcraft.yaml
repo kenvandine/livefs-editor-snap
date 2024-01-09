@@ -17,7 +17,6 @@ parts:
       - squashfs-tools
       - python3-debian
       - liblz4-tool
-      - mount
     override-pull: |
       craftctl default
       craftctl set version=$(git describe --tags --abbrev=10)
